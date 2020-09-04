@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Yigit\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Yigit\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_HexagonYigit.-1828466081.00" t="ExcludeRecursive" />
+    <e p="D:\Unity Projects\HexagonYigit" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="_Assets" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="Controllers" t="Include">
+              <e p="HexagonController.cs" t="Include" />
+            </e>
+            <e p="Enum" t="Include">
+              <e p="Direction.cs" t="Include" />
+            </e>
+            <e p="Managers" t="Include">
+              <e p="ColorManager.cs" t="Include" />
+              <e p="GameManager.cs" t="Include" />
+              <e p="GridManager.cs" t="Include" />
+              <e p="HexagonManager.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="HexagonYigit.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
