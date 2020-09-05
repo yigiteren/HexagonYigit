@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_Sun: {fileID: 1250473632}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 44ec45eea0d01e6469e3b3872474dba5, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 3c750b959defe734a847faa8e41f22b9, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -461,11 +461,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexagonColors:
-  - {r: 1, g: 0.25, b: 0.25, a: 0}
-  - {r: 0.25, g: 1, b: 0.25, a: 0}
-  - {r: 0.25, g: 0.25, b: 1, a: 0}
-  - {r: 1, g: 1, b: 0.25, a: 0}
-  - {r: 1, g: 0.25, b: 1, a: 0}
+  - {r: 0.9764706, g: 0.25490198, b: 0.26666668, a: 1}
+  - {r: 0.5137255, g: 0.8901961, b: 0.46666667, a: 1}
+  - {r: 0.015686275, g: 0.54509807, b: 0.65882355, a: 1}
+  - {r: 0.9490196, g: 0.61960787, b: 0.29803923, a: 1}
+  - {r: 0.32941177, g: 0.2784314, b: 0.54901963, a: 1}
 --- !u!1 &1872694651
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd06f5b594c8a446b8aa8a9374624a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 8, y: 9}
+  gridSize: {x: 16, y: 18}
+  testPrefab: {fileID: 4524095618086717293, guid: 4a289929c6d3322469c273dbee6ac10d, type: 3}
 --- !u!1 &2137013897
 GameObject:
   m_ObjectHideFlags: 0

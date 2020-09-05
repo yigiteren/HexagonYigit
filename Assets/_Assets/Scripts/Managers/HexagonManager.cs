@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HexagonManager : MonoBehaviour
@@ -11,6 +12,9 @@ public class HexagonManager : MonoBehaviour
     
     // Editor Variables //
     [SerializeField] private GameObject hexagonPrefab;
+
+    public HexagonController GetHexagonController(Vector2Int identifier)
+        => HexagonControllers.FirstOrDefault(controller => controller.Identifier == identifier);
 
     /// <summary>
     /// Spawns initial hexagons.
@@ -26,7 +30,7 @@ public class HexagonManager : MonoBehaviour
         else
             Instance = this;
     }
-
+    
     private IEnumerator SpawnInitialHexagonsEnumerator()
     {
         HexagonControllers = new List<HexagonController>();
@@ -36,7 +40,7 @@ public class HexagonManager : MonoBehaviour
         for (var x = 0; x < grid.GetLength(0); x++)
             for (var y = 0; y < grid.GetLength(1); y++)
             {
-                var offset = new Vector2(0, 10);
+                var offset = new Vector2(0, 15);
                 var position = grid[x, y];
                 var rotation = Quaternion.Euler(0, -90, 90);
                 var hexagon = Instantiate(hexagonPrefab, position + offset, rotation, parent);

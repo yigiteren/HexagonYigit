@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class HexagonController : MonoBehaviour
 {
-    // Public Variables //
-    public Vector2Int Identifier;
+    // Properties //
+    public Vector2Int Identifier { get; private set; }
     public Color Color => _meshRenderer.material.color;
-    public List<HexagonController> test;
 
     // Private Variables //
     private MeshRenderer _meshRenderer;
@@ -23,7 +22,6 @@ public class HexagonController : MonoBehaviour
     {
         var colorsToExclude = new List<Color>();
         var neighborhoods = FindAllNeighborhoodControllers();
-        test = neighborhoods;
 
         for (var i = 0; i < neighborhoods.Count; i++)
         {
@@ -34,7 +32,6 @@ public class HexagonController : MonoBehaviour
                 colorsToExclude.Add(first.Color);
         }
         
-        Debug.Log(Identifier + " - " + colorsToExclude.Count);
         return colorsToExclude;
     }
 
@@ -102,7 +99,7 @@ public class HexagonController : MonoBehaviour
         {
             case Direction.Above: 
                 return new Vector2Int(0, 1);
-            case Direction.AboveLeft:               // TEK //                     // ÇİFT //
+            case Direction.AboveLeft:
                 return Identifier.x % 2 != 0 ? new Vector2Int(-1, 0) : new Vector2Int(-1, 1);
             case Direction.AboveRight: 
                 return Identifier.x % 2 != 0 ? new Vector2Int(+1, 0) : new Vector2Int(1, 1);
