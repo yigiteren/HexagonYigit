@@ -11,5 +11,6 @@ public class GameManager : MonoBehaviour
         GridManager.Instance.GenerateHexagonalGrid();
         GridManager.Instance.GenerateCursorGrid();
         HexagonManager.Instance.SpawnInitialHexagons();
+        CursorManager.Instance.SpawnCursor();
     }
 }

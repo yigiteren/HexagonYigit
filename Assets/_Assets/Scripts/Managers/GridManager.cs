@@ -14,9 +14,6 @@ public class GridManager : MonoBehaviour
     [Header("Grid Settings")]
     [SerializeField] private Vector2 gridSize;
 
-    // This is a test prefab please remove before commit //
-    [SerializeField] private GameObject testPrefab;
-    
     private void Awake()
     {
         // Singleton Protector //
