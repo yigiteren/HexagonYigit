@@ -4,7 +4,7 @@ public class CursorManager : MonoBehaviour
 {
     // Properties //
     public static CursorManager Instance { get; private set; }
-        
+    public CursorController Cursor { get; private set; }
     // Editor Variables //
     [SerializeField] private GameObject cursorPrefab;
     
@@ -27,6 +27,8 @@ public class CursorManager : MonoBehaviour
         if (_cursor == null)
         {
             _cursor = Instantiate(cursorPrefab, Vector2.zero, Quaternion.identity);
+            Cursor = _cursor.GetComponent<CursorController>();
+
             _cursor.SetActive(false);
         }
     }

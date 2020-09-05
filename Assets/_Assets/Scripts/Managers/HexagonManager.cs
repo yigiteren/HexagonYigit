@@ -22,6 +22,43 @@ public class HexagonManager : MonoBehaviour
     public void SpawnInitialHexagons()
         => StartCoroutine(SpawnInitialHexagonsEnumerator());
 
+    /// <summary>
+    /// Rotates the given hexagons to the right.
+    /// </summary>
+    public void RotateHexagons(List<HexagonController> controllers, bool clockwise)
+    {
+        // We can only perform this action if there are 3 controllers.
+        if (controllers.Count != 3) return;
+        var invertRotation = clockwise ? 
+            controllers[1].transform.position.x < controllers[0].transform.position.x : 
+            controllers[1].transform.position.x > controllers[0].transform.position.x;
+
+        if (invertRotation)
+        {
+            for (var i = controllers.Count - 1; i >= 0; i--)
+            {
+                var controller = controllers[i];
+                var targetPos = i == 0 ? 
+                    controllers[2].transform.position : 
+                    controllers[i - 1].transform.position;
+            
+                controller.MoveHexagonTo(targetPos, 0.25f);
+            }
+            
+            return;
+        }
+
+        for (var i = 0; i < controllers.Count; i++)
+        {
+            var controller = controllers[i];
+            var targetPos = i == controllers.Count - 1 ? 
+                controllers[0].transform.position : 
+                controllers[i + 1].transform.position;
+            
+            controller.MoveHexagonTo(targetPos, 0.25f);
+        }
+    }
+
     private void Awake()
     {
         // Singleton Protector //

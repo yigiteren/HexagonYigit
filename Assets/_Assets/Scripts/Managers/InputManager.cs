@@ -1,37 +1,40 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Assets.Scripts.Managers
+public class InputManager : MonoBehaviour
 {
-    public class InputManager : MonoBehaviour
-    {
-        // Properties //
-        public static InputManager Instance { get; private set; }
+    // Properties //
+    public static InputManager Instance { get; private set; }
 
-        // Editor Variables //
-        [SerializeField] private Camera gameCamera;
+    // Editor Variables //
+    [SerializeField] private Camera gameCamera;
         
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-                Destroy(gameObject);
-            else
-                Instance = this;
-        }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+    }
 
-        private void Update()
-        {
-            if(Input.GetMouseButtonUp(0))
-                ChangeCursorPosition();
-        }
+    private void Update()
+    {
+        if(Input.GetMouseButtonUp(0))
+            ChangeCursorPosition();
 
-        private void ChangeCursorPosition()
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            var mousePosition = Input.mousePosition;
-            mousePosition.z = 0;
-            mousePosition = gameCamera.ScreenToWorldPoint(mousePosition);
-
-            CursorManager.Instance.MoveCursorToNearestSnapPoint(mousePosition);
+            var controllers = CursorManager.Instance.Cursor.GetNearbyHexagons();
+            HexagonManager.Instance.RotateHexagons(controllers, true);
         }
+    }
+
+    private void ChangeCursorPosition()
+    {
+        var mousePosition = Input.mousePosition;
+        mousePosition.z = 0;
+        mousePosition = gameCamera.ScreenToWorldPoint(mousePosition);
+
+        CursorManager.Instance.MoveCursorToNearestSnapPoint(mousePosition);
     }
 }
