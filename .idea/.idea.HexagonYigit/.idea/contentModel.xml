@@ -9,6 +9,7 @@
         <e p="_Assets" t="Include">
           <e p="Scripts" t="Include">
             <e p="Controllers" t="Include">
+              <e p="CursorController.cs" t="Include" />
               <e p="HexagonController.cs" t="Include" />
             </e>
             <e p="Enum" t="Include">

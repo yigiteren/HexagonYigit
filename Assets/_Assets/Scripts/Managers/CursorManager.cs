@@ -40,6 +40,6 @@ public class CursorManager : MonoBehaviour
         _cursor.SetActive(true);
         
         var snapPoint = GridManager.Instance.FindNearestCursorSnapPoint(position);
-        _cursor.transform.position = new Vector3(snapPoint.x, snapPoint.y, -1);
+        _cursor.transform.position = new Vector3(snapPoint.x, snapPoint.y, -0.3f);
     }
 }
