@@ -23,9 +23,24 @@ public class HexagonManager : MonoBehaviour
         => StartCoroutine(SpawnInitialHexagonsEnumerator());
 
     /// <summary>
-    /// Rotates the given hexagons to the right.
+    /// Rotates the hexagons 3 times, stops if something fits
+    /// into correct spot.
     /// </summary>
-    public void RotateHexagons(List<HexagonController> controllers, bool clockwise)
+    /// <param name="controllers">Controllers to rotate</param>
+    /// <param name="clockwise">Should rotate clockwise?</param>
+    public void RotateHexagons(bool clockwise)
+        => StartCoroutine(RotateHexagonsEnumerator(clockwise));
+
+    /// <summary>
+    /// Rotates the given hexagons, also handles orientation of the hexagons
+    /// like this two:
+    ///
+    /// x                    x
+    ///     x  -  and -  x
+    /// x                    x
+    /// 
+    /// </summary>
+    public void RotateHexagonsOnce(List<HexagonController> controllers, bool clockwise)
     {
         // We can only perform this action if there are 3 controllers.
         if (controllers.Count != 3) return;
@@ -35,26 +50,36 @@ public class HexagonManager : MonoBehaviour
 
         if (invertRotation)
         {
+            var firstIdentifierInverted = controllers[2].Identifier;
             for (var i = controllers.Count - 1; i >= 0; i--)
             {
                 var controller = controllers[i];
                 var targetPos = i == 0 ? 
                     controllers[2].transform.position : 
                     controllers[i - 1].transform.position;
-            
+
+                var identifier = i == 0 ? 
+                    firstIdentifierInverted : controllers[i - 1].Identifier;
+                
+                controller.SetIdentifier(identifier);
                 controller.MoveHexagonTo(targetPos, 0.25f);
             }
             
             return;
         }
 
+        var firstIdentifier = controllers[0].Identifier;
         for (var i = 0; i < controllers.Count; i++)
         {
             var controller = controllers[i];
             var targetPos = i == controllers.Count - 1 ? 
                 controllers[0].transform.position : 
                 controllers[i + 1].transform.position;
+
+            var identifier = i == controllers.Count - 1 ? 
+                firstIdentifier : controllers[i + 1].Identifier;
             
+            controller.SetIdentifier(identifier);
             controller.MoveHexagonTo(targetPos, 0.25f);
         }
     }
@@ -92,5 +117,15 @@ public class HexagonManager : MonoBehaviour
                 
                 yield return new WaitForSeconds(0.075f);
             }
+    }
+
+    private IEnumerator RotateHexagonsEnumerator(bool clockwise)
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            var controllers = CursorManager.Instance.Cursor.GetNearbyHexagons();
+            RotateHexagonsOnce(controllers, clockwise);
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 }

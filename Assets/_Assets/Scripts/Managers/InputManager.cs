@@ -24,8 +24,7 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var controllers = CursorManager.Instance.Cursor.GetNearbyHexagons();
-            HexagonManager.Instance.RotateHexagons(controllers, true);
+            HexagonManager.Instance.RotateHexagons(true);
         }
     }
 

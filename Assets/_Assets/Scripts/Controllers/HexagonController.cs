@@ -36,6 +36,25 @@ public class HexagonController : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if has 2 neighbor with same color as this.
+    /// </summary>
+    /// <returns>All matching controllers. Includes itself!</returns>
+    public List<HexagonController> HasMatchingColors()
+    {
+        var matches = new List<HexagonController>();
+        var neighborhoods = FindAllNeighborhoodControllers();
+        
+        neighborhoods.ForEach(controller =>
+        {
+            if(ColorManager.Instance.CompareColors(Color, controller.Color))
+                matches.Add(controller);
+        });
+        
+        matches.Add(this);
+        return matches;
+    }
+
+    /// <summary>
     /// Returns all neighborhood controllers, starting from the above,
     /// clockwise.
     /// </summary>

@@ -5,6 +5,7 @@ public class CursorManager : MonoBehaviour
     // Properties //
     public static CursorManager Instance { get; private set; }
     public CursorController Cursor { get; private set; }
+    
     // Editor Variables //
     [SerializeField] private GameObject cursorPrefab;
     
