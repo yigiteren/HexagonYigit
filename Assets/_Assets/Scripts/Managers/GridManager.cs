@@ -107,4 +107,11 @@ public class GridManager : MonoBehaviour
         return subGridPositions;
     }
 
+    /// <summary>
+    /// Gets position from identifier
+    /// </summary>
+    /// <param name="identifier">Identifier to check</param>
+    /// <returns>Position in grid</returns>
+    public Vector2 GetPositionToMove(Vector2Int identifier)
+        => HexagonGrid[identifier.x, identifier.y];
 }

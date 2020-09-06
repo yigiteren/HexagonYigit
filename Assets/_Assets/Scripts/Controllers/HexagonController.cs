@@ -67,6 +67,25 @@ public class HexagonController : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks whether if there is a hexagon below or not.
+    /// </summary>
+    /// <returns></returns>
+    public bool DoesHaveHexagonBelow()
+        => FindNeighborhoodController(Direction.Below);
+
+    /// <summary>
+    /// Moves hexagon down 1 unit.
+    /// </summary>
+    public void MoveHexagonDown()
+    {
+        var identifierBelow = Identifier + ConvertDirectionToIdentifier(Direction.Below);
+        if (identifierBelow.y < 0) return;
+        
+        var positionToMove = GridManager.Instance.GetPositionToMove(identifierBelow);
+        MoveHexagonTo(positionToMove, 0.25f, identifierBelow);
+    }
+
+        /// <summary>
     /// Returns all neighborhood controllers, starting from the above,
     /// clockwise.
     /// </summary>
@@ -85,7 +104,7 @@ public class HexagonController : MonoBehaviour
         return neighborhoods;
     }
 
-    /// <summary>
+        /// <summary>
     /// Finds and returns neighborhood of controller.
     /// </summary>
     public HexagonController FindNeighborhoodController(Direction direction)
@@ -100,12 +119,16 @@ public class HexagonController : MonoBehaviour
         => Identifier = identifier;
 
     /// <summary>
-    /// Moves hexagon to target position.
+    /// Moves hexagon to target position. Identifier must change after moving the hexagon.
     /// </summary>
     /// <param name="position">Final position.</param>
     /// <param name="duration">Duration of movement.</param>
-    public void MoveHexagonTo(Vector2 position, float duration)
-        => StartCoroutine(MoveHexagonToEnumerator(position, duration));
+    /// <param name="newIdentifier">New identifier hexagon.</param>
+    public void MoveHexagonTo(Vector2 position, float duration, Vector2Int newIdentifier)
+    {
+        Identifier = newIdentifier;
+        StartCoroutine(MoveHexagonToEnumerator(position, duration));
+    }
 
     /// <summary>
     /// Applies color to hexagon.

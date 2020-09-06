@@ -17,6 +17,24 @@ public class HexagonManager : MonoBehaviour
         => HexagonControllers.FirstOrDefault(controller => controller.Identifier == identifier);
 
     /// <summary>
+    /// Updates the hexagons.
+    /// </summary>
+    public IEnumerator UpdateHexagons()
+    {
+        var hexagonsToUpdate = HexagonControllers.Where(controller => 
+            !controller.DoesHaveHexagonBelow()).ToList();
+
+        while (hexagonsToUpdate.Count > 0)
+        {
+            hexagonsToUpdate.ForEach(controller => controller.MoveHexagonDown());
+            yield return new WaitForSeconds(0.3f);
+
+            hexagonsToUpdate = HexagonControllers.Where(controller => 
+                !controller.DoesHaveHexagonBelow()).ToList();
+        }
+    }
+
+    /// <summary>
     /// Spawns initial hexagons.
     /// </summary>
     public void SpawnInitialHexagons()
@@ -61,8 +79,7 @@ public class HexagonManager : MonoBehaviour
                 var identifier = i == 0 ? 
                     firstIdentifierInverted : controllers[i - 1].Identifier;
                 
-                controller.SetIdentifier(identifier);
-                controller.MoveHexagonTo(targetPos, 0.25f);
+                controller.MoveHexagonTo(targetPos, 0.25f, identifier);
             }
             
             return;
@@ -79,8 +96,7 @@ public class HexagonManager : MonoBehaviour
             var identifier = i == controllers.Count - 1 ? 
                 firstIdentifier : controllers[i + 1].Identifier;
             
-            controller.SetIdentifier(identifier);
-            controller.MoveHexagonTo(targetPos, 0.25f);
+            controller.MoveHexagonTo(targetPos, 0.25f, identifier);
         }
     }
 
@@ -109,8 +125,7 @@ public class HexagonManager : MonoBehaviour
                 hexagon.transform.localScale = new Vector3(0.95f, 0.95f, 0.95f);
 
                 var controller = hexagon.GetComponent<HexagonController>();
-                controller.SetIdentifier(new Vector2Int(x, y));
-                controller.MoveHexagonTo(position, 1f);
+                controller.MoveHexagonTo(position, 1f, new Vector2Int(x, y));
                 ColorManager.Instance.ApplySuitableColor(controller);
                 
                 HexagonControllers.Add(controller);
@@ -131,6 +146,7 @@ public class HexagonManager : MonoBehaviour
             if (hexagonsToDestroy.Count > 0)
             {
                 DestroyHexagons(hexagonsToDestroy);
+                StartCoroutine(UpdateHexagons());
                 break;
             }
         }
