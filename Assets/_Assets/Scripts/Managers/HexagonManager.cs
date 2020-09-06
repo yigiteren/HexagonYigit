@@ -28,6 +28,8 @@ public class HexagonManager : MonoBehaviour
         {
             hexagonsToUpdate.ForEach(controller => controller.MoveHexagonDown());
             yield return new WaitForSeconds(0.3f);
+            
+            CheckHexagonsToDestroy(hexagonsToUpdate);
 
             hexagonsToUpdate = HexagonControllers.Where(controller => 
                 !controller.DoesHaveHexagonBelow()).ToList();
@@ -142,14 +144,26 @@ public class HexagonManager : MonoBehaviour
             RotateHexagonsOnce(controllers, clockwise);
             yield return new WaitForSeconds(0.25f);
 
-            var hexagonsToDestroy = GetHexagonsToDestroy(controllers);
-            if (hexagonsToDestroy.Count > 0)
-            {
-                DestroyHexagons(hexagonsToDestroy);
-                StartCoroutine(UpdateHexagons());
+            if (CheckHexagonsToDestroy(controllers))
                 break;
-            }
         }
+    }
+
+    /// <summary>
+    /// Checks hexagons to destroy. Returns true if any destroyed.
+    /// </summary>
+    /// <returns></returns>
+    private bool CheckHexagonsToDestroy(List<HexagonController> controllers)
+    {
+        var hexagonsToDestroy = GetHexagonsToDestroy(controllers);
+        if (hexagonsToDestroy.Count > 0)
+        {
+            DestroyHexagons(hexagonsToDestroy);
+            StartCoroutine(UpdateHexagons());
+            return true;
+        }
+
+        return false;
     }
 
     /// <summary>

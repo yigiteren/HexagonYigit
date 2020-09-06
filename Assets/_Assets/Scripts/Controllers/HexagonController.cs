@@ -71,7 +71,10 @@ public class HexagonController : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public bool DoesHaveHexagonBelow()
-        => FindNeighborhoodController(Direction.Below);
+    {
+        if (Identifier.y == 0) return true;
+        return FindNeighborhoodController(Direction.Below);
+    }
 
     /// <summary>
     /// Moves hexagon down 1 unit.
