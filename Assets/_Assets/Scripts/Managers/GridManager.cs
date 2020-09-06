@@ -114,4 +114,15 @@ public class GridManager : MonoBehaviour
     /// <returns>Position in grid</returns>
     public Vector2 GetPositionToMove(Vector2Int identifier)
         => HexagonGrid[identifier.x, identifier.y];
+
+    public List<Vector2Int> GetAllIdentifiers()
+    {
+        var identifiers = new List<Vector2Int>();
+        
+        for(var x = 0; x < gridSize.x; x++)
+            for(var y = 0; y < gridSize.y; y++)
+                identifiers.Add(new Vector2Int(x, y));
+
+        return identifiers;
+    }
 }

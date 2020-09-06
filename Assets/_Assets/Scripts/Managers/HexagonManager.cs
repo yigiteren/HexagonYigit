@@ -12,6 +12,9 @@ public class HexagonManager : MonoBehaviour
     
     // Editor Variables //
     [SerializeField] private GameObject hexagonPrefab;
+    
+    // Private Variables //
+    private Transform _hexagonParentTransform;
 
     public HexagonController GetHexagonController(Vector2Int identifier)
         => HexagonControllers.FirstOrDefault(controller => controller.Identifier == identifier);
@@ -21,19 +24,37 @@ public class HexagonManager : MonoBehaviour
     /// </summary>
     public IEnumerator UpdateHexagons()
     {
-        var hexagonsToUpdate = HexagonControllers.Where(controller => 
-            !controller.DoesHaveHexagonBelow()).ToList();
-
-        while (hexagonsToUpdate.Count > 0)
+        var hexagonsToFallDown = HexagonControllers.Where(controller => 
+             !controller.DoesHaveHexagonBelow()).ToList();
+        
+        while (hexagonsToFallDown.Count > 0)
         {
-            hexagonsToUpdate.ForEach(controller => controller.MoveHexagonDown());
-            yield return new WaitForSeconds(0.3f);
+            hexagonsToFallDown.ForEach(hexagon => hexagon.MoveHexagonDown());
             
-            CheckHexagonsToDestroy(hexagonsToUpdate);
-
-            hexagonsToUpdate = HexagonControllers.Where(controller => 
+            hexagonsToFallDown = HexagonControllers.Where(controller => 
                 !controller.DoesHaveHexagonBelow()).ToList();
+
+            yield return null;
         }
+        
+        yield return new WaitForSeconds(0.25f);
+
+        var hexagonsToDestroy = GetHexagonsToDestroy(HexagonControllers);
+        if (hexagonsToDestroy.Count > 0)
+        {
+            DestroyHexagons(hexagonsToDestroy);
+            StartCoroutine(UpdateHexagons());
+        }
+        else
+        {
+            var emptyIdentifiers = FindEmptyIdentifiers();
+            foreach (var emptyIdentifier in emptyIdentifiers)
+            {
+                SpawnHexagon(emptyIdentifier);
+                yield return new WaitForSeconds(0.10f);
+            }
+        }
+        
     }
 
     /// <summary>
@@ -110,12 +131,43 @@ public class HexagonManager : MonoBehaviour
         else
             Instance = this;
     }
+
+    /// <summary>
+    /// Spawns a hexagon with given identifier.
+    /// </summary>
+    /// <param name="identifier"></param>
+    private void SpawnHexagon(Vector2Int identifier)
+    {
+        var offset = new Vector2(0, 10);
+        var position = GridManager.Instance.GetPositionToMove(identifier);
+        var rotation = Quaternion.Euler(0, -90, 90);
+        var hexagon = Instantiate(hexagonPrefab, position + offset, rotation, _hexagonParentTransform);
+        hexagon.transform.localScale = new Vector3(0.95f, 0.95f, 0.95f);
+
+        var controller = hexagon.GetComponent<HexagonController>();
+        controller.MoveHexagonTo(position, 0.5f, identifier);
+        ColorManager.Instance.ApplySuitableColor(controller);
+                
+        HexagonControllers.Add(controller);
+    }
+
+    /// <summary>
+    /// Finds identifiers that are empty.
+    /// </summary>
+    /// <returns>A list of empty identifiers</returns>
+    private List<Vector2Int> FindEmptyIdentifiers()
+    {
+        var identifiers = GridManager.Instance.GetAllIdentifiers();
+        var existingIdentifiers = HexagonControllers.Select(controller => controller.Identifier).ToList();
+        var emptyIdentifiers = identifiers.Except(existingIdentifiers).ToList();
+        return emptyIdentifiers;
+    }
     
     private IEnumerator SpawnInitialHexagonsEnumerator()
     {
         HexagonControllers = new List<HexagonController>();
         var grid = GridManager.Instance.HexagonGrid;
-        var parent = new GameObject("Hexagons").transform;
+        _hexagonParentTransform = new GameObject("Hexagons").transform;
 
         for (var x = 0; x < grid.GetLength(0); x++)
             for (var y = 0; y < grid.GetLength(1); y++)
@@ -123,7 +175,7 @@ public class HexagonManager : MonoBehaviour
                 var offset = new Vector2(0, 15);
                 var position = grid[x, y];
                 var rotation = Quaternion.Euler(0, -90, 90);
-                var hexagon = Instantiate(hexagonPrefab, position + offset, rotation, parent);
+                var hexagon = Instantiate(hexagonPrefab, position + offset, rotation, _hexagonParentTransform);
                 hexagon.transform.localScale = new Vector3(0.95f, 0.95f, 0.95f);
 
                 var controller = hexagon.GetComponent<HexagonController>();
