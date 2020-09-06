@@ -42,20 +42,26 @@ public class HexagonController : MonoBehaviour
     public List<HexagonController> GetAdjacentNeighborsWithSameColor()
     {
         var matches = new List<HexagonController>();
-        var neighborhoods = FindAllNeighborhoodControllers();
+        var values = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
 
-        for (var i = 0; i < neighborhoods.Count; i++)
+        for (var i = 0; i < values.Count; i++)
         {
-            var first = neighborhoods[i];
-            var second = i == neighborhoods.Count - 1 ? neighborhoods[0] : neighborhoods[i + 1];
+            var firstDir = values[i];
+            var secondDir = i == values.Count - 1 ? values[0] : values[i + 1];
 
-            if (ColorManager.CompareColors(first.Color, second.Color, Color))
+            var firstController =
+                HexagonManager.Instance.GetHexagonController(Identifier + ConvertDirectionToIdentifier(firstDir));
+            var secondController =
+                HexagonManager.Instance.GetHexagonController(Identifier + ConvertDirectionToIdentifier(secondDir));
+
+            if (firstController && secondController &&
+                ColorManager.CompareColors(firstController.Color, secondController.Color, Color))
             {
-                if(!matches.Contains(first)) matches.Add(first);
-                if(!matches.Contains(second)) matches.Add(second);
+                matches.Add(firstController);
+                matches.Add(secondController);
             }
         }
-        
+
         matches.Add(this);
         return matches;
     }
