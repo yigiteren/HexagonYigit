@@ -4,10 +4,8 @@
     <list default="true" id="54f6df7a-fc5f-49e2-9fd1-e95c7ccf8dec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HexagonYigit/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HexagonYigit/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/CursorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/CursorManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ColorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ColorManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/InputManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,14 +26,14 @@
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/HexagonManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Enum/Direction.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ColorManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/GridManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/CursorController.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/CursorManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/InputManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ColorManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" />
       </list>
     </option>
   </component>
@@ -89,6 +87,7 @@
       <workItem from="1599292009699" duration="2102000" />
       <workItem from="1599308995493" duration="2855000" />
       <workItem from="1599320984753" duration="2299000" />
+      <workItem from="1599379733877" duration="1402000" />
     </task>
     <servers />
   </component>

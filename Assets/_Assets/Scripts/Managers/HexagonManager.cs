@@ -126,6 +126,44 @@ public class HexagonManager : MonoBehaviour
             var controllers = CursorManager.Instance.Cursor.GetNearbyHexagons();
             RotateHexagonsOnce(controllers, clockwise);
             yield return new WaitForSeconds(0.25f);
+
+            var hexagonsToDestroy = GetHexagonsToDestroy(controllers);
+            if (hexagonsToDestroy.Count > 0)
+            {
+                DestroyHexagons(hexagonsToDestroy);
+                break;
+            }
         }
+    }
+
+    /// <summary>
+    /// Checks each rotated controller to get hexagons to destroy.
+    /// </summary>
+    /// <returns>Hexagon controllers required to destroy</returns>
+    private List<HexagonController> GetHexagonsToDestroy(List<HexagonController> controllersToCheck)
+    {
+        var hexagonsToDestroy = new List<HexagonController>();
+        controllersToCheck.ForEach(controller =>
+        {
+            var matches = controller.GetAdjacentNeighborsWithSameColor();
+                
+            if(matches.Count >= 3)
+                hexagonsToDestroy.AddRange(matches);
+        });
+
+        return hexagonsToDestroy;
+    }
+
+    /// <summary>
+    /// Destroys the given hexagons and removes them from the list.
+    /// </summary>
+    /// <param name="hexagonsToDestroy">Hexagons to destroy</param>
+    private void DestroyHexagons(List<HexagonController> hexagonsToDestroy)
+    {
+        hexagonsToDestroy.ForEach(hexagon =>
+        {
+            HexagonControllers.Remove(hexagon);
+            Destroy(hexagon.gameObject);
+        });
     }
 }

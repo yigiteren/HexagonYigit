@@ -28,7 +28,7 @@ public class HexagonController : MonoBehaviour
             var first = neighborhoods[i];
             var second = i == neighborhoods.Count - 1 ? neighborhoods[0] : neighborhoods[i + 1];
             
-            if(ColorManager.Instance.CompareColors(first.Color, second.Color))
+            if(ColorManager.CompareColors(first.Color, second.Color))
                 colorsToExclude.Add(first.Color);
         }
         
@@ -36,19 +36,25 @@ public class HexagonController : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if has 2 neighbor with same color as this.
+    /// Checks if adjacent neighbors have the same color as this one.
     /// </summary>
-    /// <returns>All matching controllers. Includes itself!</returns>
-    public List<HexagonController> HasMatchingColors()
+    /// <returns>Adjacent neighbors with same color. (Includes himself!)</returns>
+    public List<HexagonController> GetAdjacentNeighborsWithSameColor()
     {
         var matches = new List<HexagonController>();
         var neighborhoods = FindAllNeighborhoodControllers();
-        
-        neighborhoods.ForEach(controller =>
+
+        for (var i = 0; i < neighborhoods.Count; i++)
         {
-            if(ColorManager.Instance.CompareColors(Color, controller.Color))
-                matches.Add(controller);
-        });
+            var first = neighborhoods[i];
+            var second = i == neighborhoods.Count - 1 ? neighborhoods[0] : neighborhoods[i + 1];
+
+            if (ColorManager.CompareColors(first.Color, second.Color, Color))
+            {
+                if(!matches.Contains(first)) matches.Add(first);
+                if(!matches.Contains(second)) matches.Add(second);
+            }
+        }
         
         matches.Add(this);
         return matches;

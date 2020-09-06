@@ -46,12 +46,31 @@ public class ColorManager : MonoBehaviour
     /// <param name="first">First color</param>
     /// <param name="second">Second color</param>
     /// <returns>If they are equal</returns>
-    public bool CompareColors(Color first, Color second)
+    public static bool CompareColors(Color first, Color second)
     {
         return Math.Abs(first.r - second.r) < 0.01f &&
                Math.Abs(first.g - second.g) < 0.01f &&
                Math.Abs(first.b - second.b) < 0.01f &&
                Math.Abs(first.a - second.a) < 0.01f;
+    }
+
+    /// <summary>
+    /// Compares three colors by values.
+    /// </summary>
+    /// <param name="first">First color</param>
+    /// <param name="second">Second color</param>
+    /// <param name="third">Third color to conpare</param>
+    /// <returns>If they are equal</returns>
+    public static bool CompareColors(Color first, Color second, Color third)
+    {
+        return Math.Abs(first.r - second.r) < 0.01f &&
+               Math.Abs(first.g - second.g) < 0.01f &&
+               Math.Abs(first.b - second.b) < 0.01f &&
+               Math.Abs(first.a - second.a) < 0.01f &&
+               Math.Abs(first.r - third.r) < 0.01f &&
+               Math.Abs(first.g - third.g) < 0.01f &&
+               Math.Abs(first.b - third.b) < 0.01f &&
+               Math.Abs(first.a - third.a) < 0.01f;
     }
     
     private void Awake()
