@@ -48,6 +48,7 @@ public class HexagonManager : MonoBehaviour
         else
         {
             var emptyIdentifiers = FindEmptyIdentifiers();
+            //ScoreManager.Instance.AddScore(emptyIdentifiers.Count);
             foreach (var emptyIdentifier in emptyIdentifiers)
             {
                 SpawnHexagon(emptyIdentifier);
@@ -233,7 +234,7 @@ public class HexagonManager : MonoBehaviour
                 hexagonsToDestroy.AddRange(matches);
         });
 
-        return hexagonsToDestroy;
+        return hexagonsToDestroy.Distinct().ToList();
     }
 
     /// <summary>
@@ -242,6 +243,7 @@ public class HexagonManager : MonoBehaviour
     /// <param name="hexagonsToDestroy">Hexagons to destroy</param>
     private void DestroyHexagons(List<HexagonController> hexagonsToDestroy)
     {
+        ScoreManager.Instance.AddScore(hexagonsToDestroy.Count);
         hexagonsToDestroy.ForEach(hexagon =>
         {
             HexagonControllers.Remove(hexagon);
