@@ -73,12 +73,10 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPosition.x < cursorPosition.x)
             {
                 HexagonManager.Instance.RotateHexagons(true);
-                _cancelNextMove = true;
             }
             else
             {
                 HexagonManager.Instance.RotateHexagons(false);
-                _cancelNextMove = true;
             }
         }
         else if (mouseDelta.y < -swipeDetectionThreshold)
@@ -86,12 +84,10 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPosition.x < cursorPosition.x)
             {
                 HexagonManager.Instance.RotateHexagons(false);
-                _cancelNextMove = true;
             }
             else
             {
                 HexagonManager.Instance.RotateHexagons(true);
-                _cancelNextMove = true;
             }
         }
             
@@ -100,12 +96,10 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPosition.y < cursorPosition.y)
             {
                 HexagonManager.Instance.RotateHexagons(false);
-                _cancelNextMove = true;
             }
             else
             {
                 HexagonManager.Instance.RotateHexagons(true);
-                _cancelNextMove = true;
             }
         }
         else if (mouseDelta.x < -swipeDetectionThreshold)
@@ -113,12 +107,10 @@ public class InputManager : MonoBehaviour
             if (mouseWorldPosition.y < cursorPosition.y)
             {
                 HexagonManager.Instance.RotateHexagons(true);
-                _cancelNextMove = true;
             }
             else
             {
                 HexagonManager.Instance.RotateHexagons(false);
-                _cancelNextMove = true;
             }
         }
     }

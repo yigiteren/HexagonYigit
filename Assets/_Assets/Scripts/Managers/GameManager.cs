@@ -3,11 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     // Properties //
     public static GameManager Instance { get; private set; }
+
+    public void ShowResetDialogue()
+    {
+        UIManager.Instance.ShowDialogueBox(
+            "Are you sure you want to reset the level?",
+            "Cancel",
+            "Yes",
+            UIManager.Instance.HideDialogueBox,
+            ResetGame
+        );
+    }
+
+    private void ResetGame()
+        => SceneManager.LoadScene(0);
 
     private void Awake()
     {

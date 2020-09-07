@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
     
     // Editor Variables //
     [SerializeField] private int scoreMultiplier = 5;
+    [SerializeField] private int bombSpawnRate = 1000;
     
     // Private Variables
     private int _bombCounter;
@@ -25,7 +26,7 @@ public class ScoreManager : MonoBehaviour
         Score += destroyedTileAmount * scoreMultiplier;
         _bombCounter += destroyedTileAmount * scoreMultiplier;
 
-        if (_bombCounter >= 50)
+        if (_bombCounter >= bombSpawnRate)
         {
             _bombCounter = 0;
             ShouldSpawnBomb = true;
