@@ -21,6 +21,7 @@ public class HexagonManager : MonoBehaviour
 
     // Private Variables //
     private Transform _hexagonParentTransform;
+    private bool _isUpdating;
 
     public HexagonController GetHexagonController(Vector2Int identifier)
         => HexagonControllers.FirstOrDefault(controller => controller.Identifier == identifier);
@@ -32,11 +33,14 @@ public class HexagonManager : MonoBehaviour
     {
         var hexagonsToFallDown = HexagonControllers.Where(controller => 
              !controller.DoesHaveHexagonBelow()).ToList();
-        
+
         while (hexagonsToFallDown.Count > 0)
         {
-            hexagonsToFallDown.ForEach(hexagon => hexagon.MoveHexagonDown());
-            
+            hexagonsToFallDown.ForEach(hexagon =>
+            {
+                if (hexagon) hexagon.MoveHexagonDown();
+            });
+
             hexagonsToFallDown = HexagonControllers.Where(controller => 
                 !controller.DoesHaveHexagonBelow()).ToList();
 
@@ -69,7 +73,6 @@ public class HexagonManager : MonoBehaviour
                 yield return new WaitForSeconds(0.10f);
             }
         }
-        
     }
 
     /// <summary>
@@ -223,6 +226,7 @@ public class HexagonManager : MonoBehaviour
     private bool CheckHexagonsToDestroy(List<HexagonController> controllers)
     {
         var hexagonsToDestroy = GetHexagonsToDestroy(controllers);
+
         if (hexagonsToDestroy.Count > 0)
         {
             DestroyHexagons(hexagonsToDestroy);
@@ -257,11 +261,24 @@ public class HexagonManager : MonoBehaviour
     /// <param name="hexagonsToDestroy">Hexagons to destroy</param>
     private void DestroyHexagons(List<HexagonController> hexagonsToDestroy)
     {
-        ScoreManager.Instance.AddScore(hexagonsToDestroy.Count);
-        hexagonsToDestroy.ForEach(hexagon =>
+        var controllersToAdd = new List<HexagonController>();
+        
+        hexagonsToDestroy.ForEach(controller =>
         {
-            HexagonControllers.Remove(hexagon);
-            Destroy(hexagon.gameObject);
+            if (controller is BombController)
+            {
+                var bomb = (BombController) controller;
+                controllersToAdd.AddRange(bomb.GetControllersToDestroy());
+            }
         });
+        
+        hexagonsToDestroy.AddRange(controllersToAdd);
+        hexagonsToDestroy.ForEach(controller =>
+        {
+            HexagonControllers.Remove(controller);
+            Destroy(controller.gameObject);
+        });
+        
+        ScoreManager.Instance.AddScore(hexagonsToDestroy.Count);
     }
 }

@@ -523,6 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexagonPrefab: {fileID: 6609473988174820643, guid: c8e64c1c67fb26d438917b05378af422, type: 3}
+  bombPrefab: {fileID: 1902218465873292175, guid: a68eeeaac60b75347ae6abb14e15f98e, type: 3}
 --- !u!1 &1250473631
 GameObject:
   m_ObjectHideFlags: 0

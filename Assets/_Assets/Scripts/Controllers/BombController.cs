@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,15 @@ public class BombController : HexagonController
 
     // Private Variables //
     private int _movesLeft;
+
+    public List<HexagonController> GetControllersToDestroy()
+    {
+        var hexagonsToDestroy = HexagonManager.Instance.HexagonControllers
+            .Where(controller => ColorManager.CompareColors(controller.Color, Color)).ToList();
+        
+        hexagonsToDestroy.Add(this);
+        return hexagonsToDestroy;
+    }
 
     /// <summary>
     /// Applies color to sprite renderer.
@@ -44,6 +54,7 @@ public class BombController : HexagonController
 
     private void OnDestroy()
     {
+        if (HexagonManager.Instance == null) return;
         HexagonManager.OnMoveMade -= ReduceCounter;
     }
 }
