@@ -9,9 +9,13 @@ public class InputManager : MonoBehaviour
 
     // Editor Variables //
     [SerializeField] private Camera gameCamera;
-    
+    [SerializeField] private float swipeDetectionThreshold = 1.5f;
+
     // Private Variables //
     private bool _enableInput;
+    private bool _cancelNextMove;
+
+    private Vector3 initialTouchPosition;
 
     /// <summary>
     /// Enables the input and shows the cursor.
@@ -43,13 +47,91 @@ public class InputManager : MonoBehaviour
     {
         if (!_enableInput) return;
 
-        if(Input.GetMouseButtonUp(0))
-            ChangeCursorPosition();
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonUp(0))
         {
-            HexagonManager.Instance.RotateHexagons(true);
+            if(!_cancelNextMove)
+                ChangeCursorPosition();
+
+            _cancelNextMove = false;
         }
+
+        if (Input.GetMouseButtonDown(0))
+            initialTouchPosition = MousePositionToWorldPosition();
+
+        if (Input.GetMouseButton(0))
+            CheckPlayerSwipe();
+    }
+
+    private void CheckPlayerSwipe()
+    {
+        var mouseWorldPosition = MousePositionToWorldPosition();
+        var mouseDelta = mouseWorldPosition - initialTouchPosition;
+        var cursorPosition = CursorManager.Instance.Cursor.transform.position;
+
+        if (mouseDelta.y > swipeDetectionThreshold)
+        {
+            if (mouseWorldPosition.x < cursorPosition.x)
+            {
+                HexagonManager.Instance.RotateHexagons(true);
+                _cancelNextMove = true;
+            }
+            else
+            {
+                HexagonManager.Instance.RotateHexagons(false);
+                _cancelNextMove = true;
+            }
+        }
+        else if (mouseDelta.y < -swipeDetectionThreshold)
+        {
+            if (mouseWorldPosition.x < cursorPosition.x)
+            {
+                HexagonManager.Instance.RotateHexagons(false);
+                _cancelNextMove = true;
+            }
+            else
+            {
+                HexagonManager.Instance.RotateHexagons(true);
+                _cancelNextMove = true;
+            }
+        }
+            
+        if (mouseDelta.x > swipeDetectionThreshold)
+        {
+            if (mouseWorldPosition.y < cursorPosition.y)
+            {
+                HexagonManager.Instance.RotateHexagons(false);
+                _cancelNextMove = true;
+            }
+            else
+            {
+                HexagonManager.Instance.RotateHexagons(true);
+                _cancelNextMove = true;
+            }
+        }
+        else if (mouseDelta.x < -swipeDetectionThreshold)
+        {
+            if (mouseWorldPosition.y < cursorPosition.y)
+            {
+                HexagonManager.Instance.RotateHexagons(true);
+                _cancelNextMove = true;
+            }
+            else
+            {
+                HexagonManager.Instance.RotateHexagons(false);
+                _cancelNextMove = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Converts mouse position to world position
+    /// </summary>
+    /// <returns>Mouse position in world</returns>
+    private Vector3 MousePositionToWorldPosition()
+    {
+        var point = gameCamera.ScreenToWorldPoint(Input.mousePosition);
+        point.z = 0;
+        return point;
     }
 
     private void ChangeCursorPosition()
