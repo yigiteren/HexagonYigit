@@ -8,7 +8,7 @@ public class HexagonController : MonoBehaviour
 {
     // Properties //
     public Vector2Int Identifier { get; private set; }
-    public Color Color => _meshRenderer.material.color;
+    public virtual Color Color => _meshRenderer.material.color;
 
     // Private Variables //
     private MeshRenderer _meshRenderer;
@@ -137,10 +137,10 @@ public class HexagonController : MonoBehaviour
     /// Applies color to hexagon.
     /// </summary>
     /// <param name="color"></param>
-    public void ApplyColor(Color color)
+    public virtual void ApplyColor(Color color)
         => _meshRenderer.material.color = color;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
     }

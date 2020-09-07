@@ -8,9 +8,13 @@ public class ScoreManager : MonoBehaviour
     // Properties //
     public static ScoreManager Instance { get; private set; }
     public int Score { get; private set; }
+    public bool ShouldSpawnBomb { get; private set; }
     
     // Editor Variables //
     [SerializeField] private int scoreMultiplier = 5;
+    
+    // Private Variables
+    private int _bombCounter;
 
     /// <summary>
     /// Adds score based on destroyed tile amount.
@@ -19,8 +23,22 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int destroyedTileAmount)
     {
         Score += destroyedTileAmount * scoreMultiplier;
+        _bombCounter += destroyedTileAmount * scoreMultiplier;
+
+        if (_bombCounter >= 50)
+        {
+            _bombCounter = 0;
+            ShouldSpawnBomb = true;
+        }
+        
         UIManager.Instance.ChangeScoreText(Score);
     }
+    
+    /// <summary>
+    /// Sets ShouldSpawnBomb to false.
+    /// </summary>
+    public void DisableBombSpawn()
+        => ShouldSpawnBomb = false;
 
     private void Awake()
     {
@@ -30,5 +48,6 @@ public class ScoreManager : MonoBehaviour
             Instance = this;
 
         Score = 0;
+        _bombCounter = 0;
     }
 }

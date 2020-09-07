@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class HexagonManager : MonoBehaviour
 {
@@ -10,9 +11,14 @@ public class HexagonManager : MonoBehaviour
     public static HexagonManager Instance { get; private set; }
     public List<HexagonController> HexagonControllers { get; private set; }
     
+    // Events //
+    public delegate void OnMoveMadeDelegate();
+
+    public static event OnMoveMadeDelegate OnMoveMade;
     // Editor Variables //
     [SerializeField] private GameObject hexagonPrefab;
-    
+    [SerializeField] private GameObject bombPrefab;
+
     // Private Variables //
     private Transform _hexagonParentTransform;
 
@@ -47,11 +53,19 @@ public class HexagonManager : MonoBehaviour
         }
         else
         {
+            OnMoveMade?.Invoke();
+            
             var emptyIdentifiers = FindEmptyIdentifiers();
             //ScoreManager.Instance.AddScore(emptyIdentifiers.Count);
             foreach (var emptyIdentifier in emptyIdentifiers)
             {
-                SpawnHexagon(emptyIdentifier);
+                if (ScoreManager.Instance.ShouldSpawnBomb)
+                {
+                    SpawnPrefab(emptyIdentifier, bombPrefab);
+                    ScoreManager.Instance.DisableBombSpawn();
+                }
+                else
+                    SpawnPrefab(emptyIdentifier, hexagonPrefab);
                 yield return new WaitForSeconds(0.10f);
             }
         }
@@ -134,15 +148,15 @@ public class HexagonManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Spawns a hexagon with given identifier.
+    /// Spawns given prefab and moves it into the correct position.
     /// </summary>
     /// <param name="identifier"></param>
-    private void SpawnHexagon(Vector2Int identifier)
+    private void SpawnPrefab(Vector2Int identifier, GameObject prefab)
     {
         var offset = new Vector2(0, 10);
         var position = GridManager.Instance.GetPositionToMove(identifier);
         var rotation = Quaternion.Euler(0, -90, 90);
-        var hexagon = Instantiate(hexagonPrefab, position + offset, rotation, _hexagonParentTransform);
+        var hexagon = Instantiate(prefab, position + offset, rotation, _hexagonParentTransform);
         hexagon.transform.localScale = new Vector3(0.95f, 0.95f, 0.95f);
 
         var controller = hexagon.GetComponent<HexagonController>();

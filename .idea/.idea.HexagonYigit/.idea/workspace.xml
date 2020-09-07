@@ -4,7 +4,11 @@
     <list default="true" id="54f6df7a-fc5f-49e2-9fd1-e95c7ccf8dec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HexagonYigit/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HexagonYigit/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HexagonYigit/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HexagonYigit/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scenes/Game Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scenes/Game Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ScoreManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +23,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/CursorController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ScoreManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/49F4E7E7-91CC-4FFF-ACD8-8F729E2B1E4C/18/7d6d93f5/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/BombController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -33,11 +38,12 @@
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/GameManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/InputManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ColorManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/GridManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/UIManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/ScoreManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/HexagonController.cs" />
         <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Managers/HexagonManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Assets/Scripts/Controllers/BombController.cs" />
       </list>
     </option>
   </component>
@@ -94,7 +100,8 @@
       <workItem from="1599308995493" duration="2855000" />
       <workItem from="1599320984753" duration="2299000" />
       <workItem from="1599379733877" duration="1402000" />
-      <workItem from="1599397221174" duration="5509000" />
+      <workItem from="1599397221174" duration="5651000" />
+      <workItem from="1599462741748" duration="3356000" />
     </task>
     <servers />
   </component>
