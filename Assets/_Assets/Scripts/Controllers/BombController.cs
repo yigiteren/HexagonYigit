@@ -47,9 +47,8 @@ public class BombController : HexagonController
         counterText.text = _movesLeft.ToString();
 
         if (_movesLeft <= 0)
-        {
-            // Game Over //
-        }
+            GameManager.Instance.DisplayGameOver();
+        
     }
 
     private void OnDestroy()

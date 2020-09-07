@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     // Properties //
     public static GameManager Instance { get; private set; }
+    public bool IsGameOver { get; private set; }
 
     public void ShowResetDialogue()
     {
@@ -21,8 +22,35 @@ public class GameManager : MonoBehaviour
         );
     }
 
+    public void DisplayGameOver()
+    {
+        IsGameOver = true;
+        
+        UIManager.Instance.ShowDialogueBox(
+            "Game over! Your final score is " + ScoreManager.Instance.Score,
+            "Quit",
+            "Restart",
+            Application.Quit,
+            ResetGame
+        );
+    }
+
     private void ResetGame()
-        => SceneManager.LoadScene(0);
+    {
+        GridManager.Instance.ResetManager();
+        HexagonManager.Instance.ResetManager();
+        ScoreManager.Instance.ResetManager();
+        CursorManager.Instance.ResetManager();
+        InputManager.Instance.ResetManager();
+        ResetManager();
+        
+        SceneManager.LoadScene(0);
+    }
+
+    private void ResetManager()
+    {
+        IsGameOver = false;
+    }
 
     private void Awake()
     {

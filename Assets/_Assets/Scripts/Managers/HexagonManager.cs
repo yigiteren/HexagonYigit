@@ -301,4 +301,12 @@ public class HexagonManager : MonoBehaviour
         
         ScoreManager.Instance.AddScore(hexagonsToDestroy.Count);
     }
+
+    /// <summary>
+    /// Resets the manager
+    /// </summary>
+    public void ResetManager()
+    {
+        HexagonControllers = null;
+    }
 }

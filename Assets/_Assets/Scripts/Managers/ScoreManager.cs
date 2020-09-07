@@ -51,4 +51,14 @@ public class ScoreManager : MonoBehaviour
         Score = 0;
         _bombCounter = 0;
     }
+
+    /// <summary>
+    /// Resets the manager
+    /// </summary>
+    public void ResetManager()
+    {
+        Score = 0;
+        _bombCounter = 0;
+        ShouldSpawnBomb = false;
+    }
 }

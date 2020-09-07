@@ -15,7 +15,7 @@ public class InputManager : MonoBehaviour
     private bool _enableInput;
     private bool _cancelNextMove;
 
-    private Vector3 initialTouchPosition;
+    private Vector3 _initialTouchPosition;
 
     /// <summary>
     /// Enables the input and shows the cursor.
@@ -45,7 +45,7 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_enableInput) return;
+        if (!_enableInput || GameManager.Instance && GameManager.Instance.IsGameOver) return;
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -56,7 +56,7 @@ public class InputManager : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0))
-            initialTouchPosition = MousePositionToWorldPosition();
+            _initialTouchPosition = MousePositionToWorldPosition();
 
         if (Input.GetMouseButton(0))
             CheckPlayerSwipe();
@@ -65,7 +65,7 @@ public class InputManager : MonoBehaviour
     private void CheckPlayerSwipe()
     {
         var mouseWorldPosition = MousePositionToWorldPosition();
-        var mouseDelta = mouseWorldPosition - initialTouchPosition;
+        var mouseDelta = mouseWorldPosition - _initialTouchPosition;
         var cursorPosition = CursorManager.Instance.Cursor.transform.position;
 
         if (mouseDelta.y > swipeDetectionThreshold)
@@ -133,5 +133,16 @@ public class InputManager : MonoBehaviour
         mousePosition = gameCamera.ScreenToWorldPoint(mousePosition);
 
         CursorManager.Instance.MoveCursorToNearestSnapPoint(mousePosition);
+    }
+
+    /// <summary>
+    /// Resets the manager
+    /// </summary>
+    public void ResetManager()
+    {
+        _initialTouchPosition = Vector3.zero;
+        
+        _enableInput = false;
+        _cancelNextMove = false;
     }
 }

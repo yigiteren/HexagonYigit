@@ -57,4 +57,12 @@ public class CursorManager : MonoBehaviour
         else
             Instance = this;
     }
+
+    /// <summary>
+    /// Resets the manager
+    /// </summary>
+    public void ResetManager()
+    {
+        Cursor = null;
+    }
 }

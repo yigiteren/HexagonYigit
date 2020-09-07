@@ -66,6 +66,4 @@ public class UIManager : MonoBehaviour
         
         dialogueBox.SetActive(false);
     }
-    
-    
 }

@@ -18,11 +18,11 @@ public class GridManager : MonoBehaviour
     {
         // Singleton Protector //
         if (Instance != null && Instance != this)
-            Destroy(gameObject);
+            Destroy(this);
         else
             Instance = this;
     }
-    
+
     /// <summary>
     /// Generates the hexagonal grid.
     /// </summary>
@@ -124,5 +124,14 @@ public class GridManager : MonoBehaviour
                 identifiers.Add(new Vector2Int(x, y));
 
         return identifiers;
+    }
+
+    /// <summary>
+    /// Resets the manager
+    /// </summary>
+    public void ResetManager()
+    {
+        HexagonGrid = null;
+        CursorGrid = null;
     }
 }
