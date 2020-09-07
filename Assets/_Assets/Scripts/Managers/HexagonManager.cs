@@ -21,7 +21,7 @@ public class HexagonManager : MonoBehaviour
 
     // Private Variables //
     private Transform _hexagonParentTransform;
-    private bool _isUpdating;
+    private bool _isRotating;
 
     public HexagonController GetHexagonController(Vector2Int identifier)
         => HexagonControllers.FirstOrDefault(controller => controller.Identifier == identifier);
@@ -31,6 +31,9 @@ public class HexagonManager : MonoBehaviour
     /// </summary>
     public IEnumerator UpdateHexagons()
     {
+        // Disable the player input while updating.
+        InputManager.Instance.DisableInput();
+        
         var hexagonsToFallDown = HexagonControllers.Where(controller => 
              !controller.DoesHaveHexagonBelow()).ToList();
 
@@ -72,6 +75,9 @@ public class HexagonManager : MonoBehaviour
                     SpawnPrefab(emptyIdentifier, hexagonPrefab);
                 yield return new WaitForSeconds(0.10f);
             }
+            
+            // Enable player input after update.
+            InputManager.Instance.EnableInput();
         }
     }
 
@@ -88,7 +94,10 @@ public class HexagonManager : MonoBehaviour
     /// <param name="controllers">Controllers to rotate</param>
     /// <param name="clockwise">Should rotate clockwise?</param>
     public void RotateHexagons(bool clockwise)
-        => StartCoroutine(RotateHexagonsEnumerator(clockwise));
+    {
+        if(InputManager.Instance.IsInputEnabled)
+            StartCoroutine(RotateHexagonsEnumerator(clockwise));
+    }
 
     /// <summary>
     /// Rotates the given hexagons, also handles orientation of the hexagons
@@ -204,10 +213,15 @@ public class HexagonManager : MonoBehaviour
                 
                 yield return new WaitForSeconds(0.075f);
             }
+        
+        InputManager.Instance.EnableInput();
     }
 
     private IEnumerator RotateHexagonsEnumerator(bool clockwise)
     {
+        InputManager.Instance.DisableInput();
+        var foundMatch = false;
+        
         for (var i = 0; i < 3; i++)
         {
             var controllers = CursorManager.Instance.Cursor.GetNearbyHexagons();
@@ -215,8 +229,14 @@ public class HexagonManager : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
 
             if (CheckHexagonsToDestroy(controllers))
+            {
+                foundMatch = true;
                 break;
+            }
         }
+        
+        if(!foundMatch)
+            InputManager.Instance.EnableInput();
     }
 
     /// <summary>

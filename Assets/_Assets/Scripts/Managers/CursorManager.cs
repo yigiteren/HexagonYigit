@@ -12,14 +12,18 @@ public class CursorManager : MonoBehaviour
     // Private Variables //
     private GameObject _cursor;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-            Destroy(gameObject);
-        else
-            Instance = this;
-    }
+    /// <summary>
+    /// Enables the cursor.
+    /// </summary>
+    public void EnableCursor()
+        => _cursor.SetActive(true);
 
+    /// <summary>
+    /// Disables the cursor
+    /// </summary>
+    public void DisableCursor()
+        => _cursor.SetActive(false);
+    
     /// <summary>
     /// Spawns the initial cursor.
     /// </summary>
@@ -44,5 +48,13 @@ public class CursorManager : MonoBehaviour
         
         var snapPoint = GridManager.Instance.FindNearestCursorSnapPoint(position);
         _cursor.transform.position = new Vector3(snapPoint.x, snapPoint.y, -0.3f);
+    }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
     }
 }

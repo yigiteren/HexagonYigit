@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Grandstander SDF 1
+  m_Name: Grandstander SDF Black
   m_EditorClassIdentifier: 
-  hashCode: 1541447909
+  hashCode: -1514536845
   material: {fileID: 7271477044354151416}
-  materialHashCode: -947336667
+  materialHashCode: 824003571
   m_Version: 1.1.0
   m_SourceFontFileGUID: 0a22bcd2f5694f742a8460942fb4223d
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 0a22bcd2f5694f742a8460942fb4223d, type: 3}

@@ -5,9 +5,31 @@ public class InputManager : MonoBehaviour
 {
     // Properties //
     public static InputManager Instance { get; private set; }
+    public bool IsInputEnabled => _enableInput;
 
     // Editor Variables //
     [SerializeField] private Camera gameCamera;
+    
+    // Private Variables //
+    private bool _enableInput;
+
+    /// <summary>
+    /// Enables the input and shows the cursor.
+    /// </summary>
+    public void EnableInput()
+    {
+        CursorManager.Instance.EnableCursor();
+        _enableInput = true;
+    }
+
+    /// <summary>
+    /// Disables the input and hides the cursor.
+    /// </summary>
+    public void DisableInput()
+    {
+        CursorManager.Instance.DisableCursor();
+        _enableInput = false;
+    }
         
     private void Awake()
     {
@@ -19,6 +41,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if (!_enableInput) return;
+
         if(Input.GetMouseButtonUp(0))
             ChangeCursorPosition();
 
